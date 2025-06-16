@@ -1,0 +1,7 @@
+spring:
+  data:
+    mongodb:
+      uri: ${MONGO_DB_URI:mongodb://localhost:27017/notifications-db}
+
+server:
+  port: 8086
