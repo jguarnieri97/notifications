@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequestDto;
+import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequest;
 import ar.edu.unlam.tpi.notifications.dto.response.GenericResponse;
-import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponseDto;
+import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
@@ -21,7 +21,7 @@ public interface NotificationController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create notification")
-    GenericResponse<NotificationCreateResponseDto> createNotification(
-        @RequestBody NotificationCreateRequestDto request
+    GenericResponse<NotificationCreateResponse> createNotification(
+        @RequestBody NotificationCreateRequest request
     );
 }

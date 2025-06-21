@@ -2,8 +2,8 @@ package ar.edu.unlam.tpi.notifications.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequestDto;
-import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponseDto;
+import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequest;
+import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponse;
 import ar.edu.unlam.tpi.notifications.models.Notification;
 import ar.edu.unlam.tpi.notifications.persistence.dao.NotificationDAO;
 import ar.edu.unlam.tpi.notifications.service.EmailService;
@@ -20,12 +20,12 @@ public class NotificationServiceImpl implements NotificationService {
     private final EmailService emailService;
 
     @Override
-    public NotificationCreateResponseDto saveNewNotification(NotificationCreateRequestDto request){
+    public NotificationCreateResponse saveNewNotification(NotificationCreateRequest request){
         log.info("Creating new notification with request: {}", request);
         Notification notification  = Converter.convertToEntity(request, Notification.class);        
         Notification result = notificationDAO.save(notification);
         emailService.sendEmail("alanaruquipa242@gmail.com", "prueba");
-        return Converter.convertToDto(result, NotificationCreateResponseDto.class);
+        return Converter.convertToDto(result, NotificationCreateResponse.class);
     }
     
 }

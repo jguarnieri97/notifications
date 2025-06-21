@@ -15,5 +15,9 @@ spring:
             enable: true
             required: true
     protocol: smtp
+
+accounts:
+  host: ${ACCOUNTS_API_URI:http://localhost:8083/accounts/v1/}
+
 server:
-  port: 8085
+  port: 8090

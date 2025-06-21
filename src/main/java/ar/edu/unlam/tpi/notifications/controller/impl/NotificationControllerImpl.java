@@ -3,9 +3,9 @@ package ar.edu.unlam.tpi.notifications.controller.impl;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unlam.tpi.notifications.controller.NotificationController;
-import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequestDto;
+import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequest;
 import ar.edu.unlam.tpi.notifications.dto.response.GenericResponse;
-import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponseDto;
+import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponse;
 import ar.edu.unlam.tpi.notifications.service.NotificationService;
 import ar.edu.unlam.tpi.notifications.utils.Constants;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ public class NotificationControllerImpl implements NotificationController{
     private final NotificationService notificationService;
 
     @Override
-    public GenericResponse<NotificationCreateResponseDto> createNotification(NotificationCreateRequestDto request){
-        NotificationCreateResponseDto response = notificationService.saveNewNotification(request);
+    public GenericResponse<NotificationCreateResponse>createNotification(NotificationCreateRequest request){
+        NotificationCreateResponse response = notificationService.saveNewNotification(request);
         
         return new GenericResponse<>(
             Constants.STATUS_OK,

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ErrorResponseDto {
+public class ErrorResponse {
     private Integer code;
     private String message;
     private String detail;

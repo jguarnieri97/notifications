@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class NotificationCreateResponseDto {
+public class NotificationCreateResponse {
     private String id;
     private LocalDate createdAt;
 }

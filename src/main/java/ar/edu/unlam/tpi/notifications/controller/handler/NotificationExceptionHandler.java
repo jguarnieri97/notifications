@@ -1,6 +1,6 @@
 package ar.edu.unlam.tpi.notifications.controller.handler;
 
-import ar.edu.unlam.tpi.notifications.dto.response.ErrorResponseDto;
+import ar.edu.unlam.tpi.notifications.dto.response.ErrorResponse;
 import ar.edu.unlam.tpi.notifications.exceptions.InternalException;
 import ar.edu.unlam.tpi.notifications.exceptions.NotFoundException;
 import ar.edu.unlam.tpi.notifications.utils.Constants;
@@ -16,10 +16,10 @@ import java.util.Map;
 @ControllerAdvice
 public class NotificationExceptionHandler {
     @ExceptionHandler(InternalException.class)
-    public ResponseEntity<ErrorResponseDto> handleEmptyException(InternalException ex) {
+    public ResponseEntity<ErrorResponse> handleEmptyException(InternalException ex) {
         return ResponseEntity
                 .status(ex.getCode())
-                .body(ErrorResponseDto.builder()
+                .body(ErrorResponse.builder()
                         .code(ex.getCode())
                         .message(ex.getMessage())
                         .detail(ex.getDetail())
@@ -27,10 +27,10 @@ public class NotificationExceptionHandler {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorResponseDto> handleNotFoundException(NotFoundException ex) {
+    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException ex) {
         return ResponseEntity
                 .status(ex.getCode())
-                .body(ErrorResponseDto.builder()
+                .body(ErrorResponse.builder()
                         .code(ex.getCode())
                         .message(ex.getMessage())
                         .detail(ex.getDetail())
@@ -38,7 +38,7 @@ public class NotificationExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponseDto> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
@@ -48,7 +48,7 @@ public class NotificationExceptionHandler {
 
         return ResponseEntity
                 .status(Constants.STATUS_INTERNAL)
-                .body(ErrorResponseDto.builder()
+                .body(ErrorResponse.builder()
                         .code(Constants.STATUS_INTERNAL)
                         .message(Constants.INTERNAL_ERROR)
                         .detail(errors.toString())
