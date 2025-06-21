@@ -10,4 +10,5 @@ public interface NotificationService {
     
     public NotificationCreateResponse saveNewNotification(NotificationCreateRequest request);
     public List<NotificationResponse> getNotificationsByUserIdAndType(Long userId, String userType);
+    public void markNotificationAsRead(String id);
 }

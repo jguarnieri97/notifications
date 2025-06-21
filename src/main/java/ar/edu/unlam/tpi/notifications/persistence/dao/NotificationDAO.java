@@ -23,4 +23,12 @@ public interface NotificationDAO {
      * @return una lista de notificaciones que coinciden con el user id y user type.
      */
     List<Notification> findByUserIdAndUserType(Long userId, String userType);
+
+    /**
+     * Buscar una notificacion por su id.
+     *
+     * @param id el id de la notificacion.
+     * @return la notificacion encontrada o null si no existe.
+     */
+    Notification findById(String id);
 }

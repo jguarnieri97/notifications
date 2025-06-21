@@ -35,4 +35,9 @@ public interface NotificationController {
     GenericResponse<List<NotificationResponse>> getNotificationsByUserIdAndType(
         Long userId, String userType
     );
+
+    @PostMapping("/read/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Mark notification as read")
+    GenericResponse<Void> markNotificationAsRead(String id);
 }

@@ -82,4 +82,12 @@ public class NotificationServiceImpl implements NotificationService {
         List<Notification> notifications = notificationDAO.findByUserIdAndUserType(userId, userType);
         return Converter.convertToDtoList(notifications, NotificationResponse.class);
     }
+
+    @Override
+    public void markNotificationAsRead(String id) {
+        log.info("Marking notification with ID: {} as read", id);
+        Notification notification = notificationDAO.findById(id);
+        notification.setIsRead(true);
+        notificationDAO.save(notification);
+    }
 }

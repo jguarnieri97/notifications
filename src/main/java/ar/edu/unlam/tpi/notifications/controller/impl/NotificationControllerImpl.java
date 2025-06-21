@@ -39,4 +39,14 @@ public class NotificationControllerImpl implements NotificationController{
             notifications
         );
     }
+
+    @Override
+    public GenericResponse<Void> markNotificationAsRead(String id) {
+        notificationService.markNotificationAsRead(id);
+        return new GenericResponse<>(
+            Constants.STATUS_OK,
+            Constants.SUCCESS_MESSAGE,
+            null
+        );
+    }
 }
