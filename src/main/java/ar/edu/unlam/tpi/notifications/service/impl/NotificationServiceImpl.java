@@ -10,6 +10,7 @@ import ar.edu.unlam.tpi.notifications.dto.request.AccountDetailRequest;
 import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequest;
 import ar.edu.unlam.tpi.notifications.dto.response.AccountDetailResponse;
 import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponse;
+import ar.edu.unlam.tpi.notifications.dto.response.NotificationResponse;
 import ar.edu.unlam.tpi.notifications.dto.response.UserResponse;
 import ar.edu.unlam.tpi.notifications.models.Notification;
 import ar.edu.unlam.tpi.notifications.persistence.dao.NotificationDAO;
@@ -72,5 +73,13 @@ public class NotificationServiceImpl implements NotificationService {
         List<AccountDetailRequest> requestClient = List.of(new AccountDetailRequest(request.getUserId(), request.getUserType()));
         UserResponse userResponse = accountsClient.getAccountById(requestClient);
         return userResponse;
+    }
+
+
+    @Override
+    public List<NotificationResponse> getNotificationsByUserIdAndType(Long userId, String userType) {
+        log.info("Retrieving notifications for user ID: {} and user type: {}", userId, userType);
+        List<Notification> notifications = notificationDAO.findByUserIdAndUserType(userId, userType);
+        return Converter.convertToDtoList(notifications, NotificationResponse.class);
     }
 }

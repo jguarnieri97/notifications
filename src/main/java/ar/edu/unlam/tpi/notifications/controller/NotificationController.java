@@ -1,6 +1,7 @@
 package ar.edu.unlam.tpi.notifications.controller;
 
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -8,8 +9,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequest;
 import ar.edu.unlam.tpi.notifications.dto.response.GenericResponse;
 import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponse;
+import ar.edu.unlam.tpi.notifications.dto.response.NotificationResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
@@ -23,5 +27,12 @@ public interface NotificationController {
     @Operation(summary = "Create notification")
     GenericResponse<NotificationCreateResponse> createNotification(
         @RequestBody NotificationCreateRequest request
+    );
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    @Operation(summary = "Get notifications by user id and type")
+    GenericResponse<List<NotificationResponse>> getNotificationsByUserIdAndType(
+        Long userId, String userType
     );
 }

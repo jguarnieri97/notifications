@@ -22,6 +22,8 @@ public class Notification {
     private String id;
     @Field(name="user_id")
     private Long userId;
+    @Field(name="user_type")
+    private String userType;
     @Field(name="in_mail")
     private Boolean inMail;
     private String content;

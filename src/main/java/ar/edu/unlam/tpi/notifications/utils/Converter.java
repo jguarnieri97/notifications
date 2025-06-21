@@ -1,6 +1,7 @@
 package ar.edu.unlam.tpi.notifications.utils;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 
@@ -32,4 +33,9 @@ public class Converter {
         return objectMapper.convertValue(object, targetClass);
     }
 
+    public static <T,K> List<T> convertToDtoList(List<K> objects, Class<T> dtoClass) {
+        return objects.stream()
+                .map(obj-> convertToDto(obj, dtoClass))
+                .toList();
+    }
 }
