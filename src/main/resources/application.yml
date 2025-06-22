@@ -2,6 +2,22 @@ spring:
   data:
     mongodb:
       uri: ${MONGO_DB_URI:mongodb://localhost:27017/notifications-db}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: nexwork3@gmail.com
+    password: gplm ywld boff nqgm
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+    protocol: smtp
+
+accounts:
+  host: ${ACCOUNTS_API_URI:http://localhost:8083/accounts/v1/}
 
 server:
-  port: 8086
+  port: 8090
