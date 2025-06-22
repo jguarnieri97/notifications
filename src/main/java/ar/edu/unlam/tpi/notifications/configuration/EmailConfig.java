@@ -1,9 +1,5 @@
 package ar.edu.unlam.tpi.notifications.configuration;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +21,7 @@ public class EmailConfig {
     @Bean(name="mimeMessageHelper")
     public MimeMessageHelper generateMimeMessageHelper(@Qualifier("mimeMessage") MimeMessage mimeMessage) throws Exception {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true);
-
         mimeMessageHelper.setFrom("support@nexwork.com", "Nexwork Support");
-//        mimeMessageHelper.setText(content,true);
-
         return mimeMessageHelper;
     }
 

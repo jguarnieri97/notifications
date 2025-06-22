@@ -31,6 +31,7 @@ public class NotificationServiceImpl implements NotificationService {
     @Override
     public NotificationCreateResponse saveNewNotification(NotificationCreateRequest request){
         log.info("Creating new notification with request: {}", request);
+        
         Notification notification = instanceNewNotification(request);
         Notification result = notificationDAO.save(notification);
 
@@ -40,6 +41,7 @@ public class NotificationServiceImpl implements NotificationService {
     
     private Notification instanceNewNotification(NotificationCreateRequest request) {
         Notification notification  = Converter.convertToEntity(request, Notification.class); 
+        notification.setId(null);
         notification.setIsRead(false);
         notification.setCreatedAt(LocalDate.now());
 
