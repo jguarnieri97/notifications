@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequest;
 import ar.edu.unlam.tpi.notifications.dto.response.GenericResponse;
-import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponse;
 import ar.edu.unlam.tpi.notifications.dto.response.NotificationResponse;
 import io.swagger.v3.oas.annotations.Operation;
 

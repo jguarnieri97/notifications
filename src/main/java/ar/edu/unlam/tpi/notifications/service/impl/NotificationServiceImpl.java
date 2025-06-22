@@ -3,6 +3,7 @@ package ar.edu.unlam.tpi.notifications.service.impl;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tpi.notifications.clients.AccountsClient;
@@ -14,19 +15,20 @@ import ar.edu.unlam.tpi.notifications.dto.response.UserResponse;
 import ar.edu.unlam.tpi.notifications.exceptions.NotFoundException;
 import ar.edu.unlam.tpi.notifications.models.Notification;
 import ar.edu.unlam.tpi.notifications.persistence.dao.NotificationDAO;
-import ar.edu.unlam.tpi.notifications.service.EmailService;
 import ar.edu.unlam.tpi.notifications.service.NotificationService;
 import ar.edu.unlam.tpi.notifications.utils.Converter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import ar.edu.unlam.tpi.notifications.events.EmailSendEvent;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class NotificationServiceImpl implements NotificationService {
+    
     private final NotificationDAO notificationDAO;
-    private final EmailService emailService;
     private final AccountsClient accountsClient;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Override
     public void saveNewNotification(NotificationCreateRequest request){
@@ -49,14 +51,14 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     private void checkIfWeNeedSendEmail(NotificationCreateRequest request){
-        if(request.getInMail()){
+        if (request.getInMail()) {
             log.info("Sending email notification to user with id: {}", request.getUserId());
-            AccountDetailResponse userInfo = searchUserInformation(request); 
-            emailService.sendEmail(userInfo.getEmail(), request.getEmailCreateRequest());
+            AccountDetailResponse userInfo = searchUserInformation(request);
+
+            eventPublisher.publishEvent(EmailSendEvent.of(this, userInfo.getEmail(), request.getEmailCreateRequest()));
         } else {
             log.info("Email notification not sent for user with id: {}", request.getUserId());
         }
-
     }
 
     private AccountDetailResponse searchUserInformation(NotificationCreateRequest request){
