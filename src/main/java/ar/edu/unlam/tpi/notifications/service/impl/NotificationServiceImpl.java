@@ -9,9 +9,9 @@ import ar.edu.unlam.tpi.notifications.clients.AccountsClient;
 import ar.edu.unlam.tpi.notifications.dto.request.AccountDetailRequest;
 import ar.edu.unlam.tpi.notifications.dto.request.NotificationCreateRequest;
 import ar.edu.unlam.tpi.notifications.dto.response.AccountDetailResponse;
-import ar.edu.unlam.tpi.notifications.dto.response.NotificationCreateResponse;
 import ar.edu.unlam.tpi.notifications.dto.response.NotificationResponse;
 import ar.edu.unlam.tpi.notifications.dto.response.UserResponse;
+import ar.edu.unlam.tpi.notifications.exceptions.NotFoundException;
 import ar.edu.unlam.tpi.notifications.models.Notification;
 import ar.edu.unlam.tpi.notifications.persistence.dao.NotificationDAO;
 import ar.edu.unlam.tpi.notifications.service.EmailService;
@@ -29,14 +29,14 @@ public class NotificationServiceImpl implements NotificationService {
     private final AccountsClient accountsClient;
 
     @Override
-    public NotificationCreateResponse saveNewNotification(NotificationCreateRequest request){
+    public void saveNewNotification(NotificationCreateRequest request){
         log.info("Creating new notification with request: {}", request);
         
         Notification notification = instanceNewNotification(request);
-        Notification result = notificationDAO.save(notification);
+        notificationDAO.save(notification);
+        log.info("Saving new notification");
 
         checkIfWeNeedSendEmail(request);
-        return Converter.convertToDto(result, NotificationCreateResponse.class);
     }
     
     private Notification instanceNewNotification(NotificationCreateRequest request) {
@@ -64,9 +64,14 @@ public class NotificationServiceImpl implements NotificationService {
         UserResponse userInfo = getUserFromAccountClient(request);
     
         return switch(request.getUserType()) {
-            case "SUPPLIER" -> userInfo.getSuppliers().get(0);
-            case "APPLICANT" -> userInfo.getApplicants().get(0);
-            default -> userInfo.getWorkers().get(0);
+            case "SUPPLIER" -> userInfo.getSuppliers().stream().findFirst()
+                .orElseThrow(() -> new NotFoundException("No supplier found for user ID: " + request.getUserId()));
+            
+            case "APPLICANT" -> userInfo.getApplicants().stream().findFirst()
+                .orElseThrow(() -> new NotFoundException("No applicant found for user ID: " + request.getUserId()));
+            
+            default -> userInfo.getWorkers().stream().findFirst()
+                .orElseThrow(() -> new NotFoundException("No worker found for user ID: " + request.getUserId()));
         };
     }
 

@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tpi.notifications.dto.request.EmailCreateRequest;
+import ar.edu.unlam.tpi.notifications.exceptions.InternalException;
 import ar.edu.unlam.tpi.notifications.service.EmailService;
+import ar.edu.unlam.tpi.notifications.service.EmailTemplateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -21,6 +23,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 public class EmailServiceImpl implements EmailService{
 
     private final JavaMailSender mailSender;
+    private final EmailTemplateService emailTemplateService;
+
     @Qualifier("mimeMessageHelper")
     private final MimeMessageHelper mimeMessageHelper;
 
@@ -35,44 +39,21 @@ public class EmailServiceImpl implements EmailService{
             log.info("Correo electrónico enviado a: {}", to);
         } catch (Exception e) {
             log.error("Error al enviar el correo electrónico a: {}", to, e);
+            throw new InternalException("Error al enviar el correo electrónico");
         }
     }
 
     private String generateEmailContent(EmailCreateRequest emailCreateRequest){
 
         try{
-            String templateHtml = generateEmailTemplate(emailCreateRequest.getType());
-            templateHtml = fillTemplate(templateHtml, emailCreateRequest.getTemplateVariables());
+            String templateHtml = emailTemplateService.generateEmailTemplate(emailCreateRequest.getType());
+            templateHtml = emailTemplateService.fillTemplate(templateHtml, emailCreateRequest.getTemplateVariables());
             
             return templateHtml;
         }catch(Exception e){
             log.error("Error al leer el archivo de plantilla de correo electrónico", e);
-            return "Error al cargar la plantilla de correo electrónico.";
+            throw new InternalException("Error al leer el archivo de plantilla de correo electrónico");
         }
 
-    }
-
-    private String generateEmailTemplate(String type) throws Exception{
-
-        return switch(type) {
-            case "BUDGET" ->
-                new String(Files.readAllBytes(Paths.get("src/main/resources/templates/budget-request-email.html")), StandardCharsets.UTF_8);
-            case "CONTRACT_EMAIL" ->
-                new String(Files.readAllBytes(Paths.get("src/main/resources/templates/work-contract-created-email.html")), StandardCharsets.UTF_8);
-            case "CONTRACT_APPLICANT" ->
-                new String(Files.readAllBytes(Paths.get("src/main/resources/templates/work-contract-finalized-applicant-email.html")), StandardCharsets.UTF_8);
-            case "CONTRACT_SUPPLIER" ->
-                new String(Files.readAllBytes(Paths.get("src/main/resources/templates/work-contract-finalized-supplier-email.html")), StandardCharsets.UTF_8);
-            default -> "Tipo de correo electrónico no reconocido.";
-        };
-    }
-
-    private String fillTemplate(String template, Map<String,String> templateVariables) {
-        
-        for (Map.Entry<String, String> entry : templateVariables.entrySet()) {
-            String placeholder = "{{" + entry.getKey() + "}}";
-            template = template.replace(placeholder, entry.getValue());
-        }
-        return template;
     }
 }

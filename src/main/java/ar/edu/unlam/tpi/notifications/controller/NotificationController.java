@@ -27,7 +27,7 @@ public interface NotificationController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Create notification")
-    GenericResponse<NotificationCreateResponse> createNotification(
+    GenericResponse<Void> createNotification(
         @RequestBody NotificationCreateRequest request
     );
 
