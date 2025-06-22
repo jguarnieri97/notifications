@@ -1,12 +1,13 @@
 package ar.edu.unlam.tpi.notifications.service;
 
+import ar.edu.unlam.tpi.notifications.dto.request.EmailCreateRequest;
+
 public interface EmailService {
     /**
      * Envia un correo electrónico.
      *
      * @param to destinatario del correo electrónico
-     * @param subject asunto del correo electrónico
-     * @param content contenido del correo electrónico
+     * @param emailCreateRequest objeto que contiene la información del correo electrónico a enviar   
      */
-    void sendEmail(String to, String subject);    
+    public void sendEmail(String to, EmailCreateRequest emailCreateRequest);
 }

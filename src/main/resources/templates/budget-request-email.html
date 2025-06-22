@@ -13,22 +13,25 @@
     </tr>
     <tr>
       <td style="padding: 20px;">
-        <p>Hola, nombre proveedor</p>
+        <p>Hola, {{proveedor}}</p>
         <p>Se te ha asignado un nuevo pedido de presupuesto. A continuación los detalles:</p>
 
-        <h4 style="color: #003366;">Datos del solicitante: Nombre</h4>
-        <p style="font-size: 14px"><strong>Resumen:</strong> Some work resume</p>
-        <p style="font-size: 14px"><strong>Detalle:</strong> Some work detail</p>
-        <p style="font-size: 14px"><strong>Categoría:</strong> GASISTA</p>
+        <h4 style="color: #003366;">Datos del solicitante: {{solicitante}}</h4>
+        <p style="font-size: 14px"><strong>Resumen:</strong> {{resumen}}</p>
+        <p style="font-size: 14px"><strong>Detalle:</strong> {{detalle}}</p>
+        <p style="font-size: 14px"><strong>Categoría:</strong> {{categoria}}</p>
 
+      <!--
         <h4 style="color: #003366;">Imágenes del trabajo</h4>
+       
         <div>
           <img src="data:image/jpeg;base64,BASE64_STRING_AQUI" alt="Trabajo" style="max-width: 100%; margin-bottom: 10px; border-radius: 4px;">
         </div>
+      -->
 
         <p style="margin-top: 30px;">Por favor, ingresá a la plataforma para responder este pedido.</p>
         <div style="text-align: center; margin: 30px 0;">
-          <a href="https://nexwork.com/ingresar" style="background-color: #F26522; color: white; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">Ir a la plataforma</a>
+          <a href="{{url}}" style="background-color: #F26522; color: white; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">Ir a la plataforma</a>
         </div>
 
         <p>Gracias,</p>

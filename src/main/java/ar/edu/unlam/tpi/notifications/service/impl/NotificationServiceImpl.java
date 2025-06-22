@@ -50,7 +50,7 @@ public class NotificationServiceImpl implements NotificationService {
         if(request.getInMail()){
             log.info("Sending email notification to user with id: {}", request.getUserId());
             AccountDetailResponse userInfo = searchUserInformation(request); 
-            emailService.sendEmail(userInfo.getEmail(), "prueba");
+            emailService.sendEmail(userInfo.getEmail(), request.getEmailCreateRequest());
         } else {
             log.info("Email notification not sent for user with id: {}", request.getUserId());
         }
@@ -62,8 +62,8 @@ public class NotificationServiceImpl implements NotificationService {
         UserResponse userInfo = getUserFromAccountClient(request);
     
         return switch(request.getUserType()) {
-            case "SUPPLIER" -> userInfo.getApplicants().get(0);
-            case "APPLICANT" -> userInfo.getSuppliers().get(0);
+            case "SUPPLIER" -> userInfo.getSuppliers().get(0);
+            case "APPLICANT" -> userInfo.getApplicants().get(0);
             default -> userInfo.getWorkers().get(0);
         };
     }

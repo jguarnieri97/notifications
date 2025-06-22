@@ -13,22 +13,23 @@
     </tr>
     <tr>
       <td style="padding: 20px;">
-        <p style="font-size: 14px;">Hola, Nombre del proveedor</p>
+        <p style="font-size: 14px;">Hola, {{proveedor}}</p>
         <p style="font-size: 14px;">Registramos que finalizaste el trabajo asignado y se ha generado correctamente el remito correspondiente.</p>
 
         <h4 style="color: #003366;">Detalle del trabajo informado</h4>
-        <p style="font-size: 14px;">work done realized detail</p>
+        <p style="font-size: 14px;">{{detalle}}</p>
 
+
+        <!--
         <h4 style="color: #003366;">Evidencia registrada</h4>
         <div>
-          <!-- Repetir por cada imagen en base64 -->
           <img src="data:image/jpeg;base64,BASE64_STRING_1" alt="Evidencia" style="max-width: 100%; margin-bottom: 10px; border-radius: 4px;">
           <img src="data:image/jpeg;base64,BASE64_STRING_2" alt="Evidencia" style="max-width: 100%; margin-bottom: 10px; border-radius: 4px;">
         </div>
-
+      -->
         <p style="font-size: 14px; margin-top: 30px;">Podés consultar el remito generado desde tu panel en la plataforma.</p>
         <div style="text-align: center; margin: 30px 0;">
-          <a href="https://nexwork.com/remitos" style="background-color: #F26522; color: white; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">Ver remito</a>
+          <a href="{{url}}" style="background-color: #F26522; color: white; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">Ver remito</a>
         </div>
 
         <p style="font-size: 14px;">Gracias por tu compromiso,</p>

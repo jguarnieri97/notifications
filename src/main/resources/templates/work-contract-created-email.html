@@ -13,18 +13,18 @@
     </tr>
     <tr>
       <td style="padding: 20px;">
-        <p style="font-size: 14px;">Hola, Nombre del solicitante</p>
-        <p style="font-size: 14px;">Te informamos que el proveedor ha confirmado y agendado el trabajo correspondiente al presupuesto <strong>#1</strong>.</p>
+        <p style="font-size: 14px;">Hola, {{solicitante}}</p>
+        <p style="font-size: 14px;">Te informamos que el proveedor {{proveedor}} ha confirmado y agendado el trabajo correspondiente al presupuesto <strong>#1</strong>.</p>
 
         <h4 style="color: #003366;">Detalles del trabajo</h4>
-        <p style="font-size: 14px;"><strong>Precio acordado:</strong> $150.000</p>
-        <p style="font-size: 14px;"><strong>Fecha de inicio:</strong> 04/05/2025 09:00 hs</p>
-        <p style="font-size: 14px;"><strong>Fecha de finalización:</strong> 04/05/2025 09:00 hs</p>
+        <p style="font-size: 14px;"><strong>Precio acordado:</strong> {{precio}}</p>
+        <p style="font-size: 14px;"><strong>Fecha de inicio:</strong> {{inicio}}</p>
+        <p style="font-size: 14px;"><strong>Fecha de finalización:</strong> {{finalizacion}}</p>
 
         <p style="font-size: 14px;">El proveedor se presentará con su equipo de trabajo según lo acordado.</p>
 
         <div style="text-align: center; margin: 30px 0;">
-          <a href="https://nexwork.com/ingresar" style="background-color: #F26522; color: white; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">Ver detalles</a>
+          <a href="{{url}}" style="background-color: #F26522; color: white; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">Ver detalles</a>
         </div>
 
         <p style="font-size: 14px;">Gracias por confiar en Nexwork.</p>

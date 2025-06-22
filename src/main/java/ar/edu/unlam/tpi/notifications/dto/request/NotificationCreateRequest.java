@@ -10,4 +10,5 @@ public class NotificationCreateRequest {
     private String userType;
     private Boolean inMail;
     private String content;
+    private EmailCreateRequest emailCreateRequest;
 }
