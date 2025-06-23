@@ -1,6 +1,6 @@
 package ar.edu.unlam.tpi.notifications.service.impl;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tpi.notifications.dto.request.EmailCreateRequest;
@@ -20,12 +20,12 @@ public class EmailServiceImpl implements EmailService{
     private final JavaMailSender mailSender;
     private final EmailTemplateService emailTemplateService;
 
-    @Qualifier("mimeMessageHelper")
-    private final MimeMessageHelper mimeMessageHelper;
-
     @Override
     public void sendEmail(String to, EmailCreateRequest emailCreateRequest) {
         try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
             mimeMessageHelper.setTo(to);
             mimeMessageHelper.setSubject(emailCreateRequest.getSubject());
             String content = generateEmailContent(emailCreateRequest);
