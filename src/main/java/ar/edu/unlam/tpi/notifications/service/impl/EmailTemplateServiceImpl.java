@@ -32,7 +32,8 @@ public class EmailTemplateServiceImpl implements EmailTemplateService {
         
         for (Map.Entry<String, String> entry : templateVariables.entrySet()) {
             String placeholder = "{{" + entry.getKey() + "}}";
-            template = template.replace(placeholder, entry.getValue());
+            String replacement = entry.getValue() != null ? entry.getValue() : "";
+            template = template.replace(placeholder, replacement);
         }
         return template;
     }
