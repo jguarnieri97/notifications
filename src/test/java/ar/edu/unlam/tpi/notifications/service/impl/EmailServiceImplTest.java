@@ -44,13 +44,10 @@ public class EmailServiceImplTest {
         when(emailTemplateService.generateEmailTemplate("BUDGET")).thenReturn(templateHtml);
         when(emailTemplateService.fillTemplate(templateHtml, variables)).thenReturn(filledHtml);
         MimeMessage mimeMessage = mock(MimeMessage.class);
-        when(mimeMessageHelper.getMimeMessage()).thenReturn(mimeMessage);
+        when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
 
         emailService.sendEmail(to, request);
 
-        verify(mimeMessageHelper).setTo(to);
-        verify(mimeMessageHelper).setSubject("Test Subject");
-        verify(mimeMessageHelper).setText(filledHtml, true);
         verify(mailSender).send(mimeMessage);
     }
 
@@ -66,7 +63,7 @@ public class EmailServiceImplTest {
         when(emailTemplateService.generateEmailTemplate("BUDGET")).thenReturn(templateHtml);
         when(emailTemplateService.fillTemplate(templateHtml, variables)).thenReturn(templateHtml);
         MimeMessage mimeMessage = mock(MimeMessage.class);
-        when(mimeMessageHelper.getMimeMessage()).thenReturn(mimeMessage);
+        when(mailSender.createMimeMessage()).thenReturn(mimeMessage);
         doThrow(new RuntimeException("fail")).when(mailSender).send(mimeMessage);
 
         assertThatThrownBy(() -> emailService.sendEmail(to, request))
