@@ -20,4 +20,4 @@ accounts:
   host: ${ACCOUNTS_API_URI:http://localhost:8083/accounts/v1/}
 
 server:
-  port: 8090
+  port: 8086
