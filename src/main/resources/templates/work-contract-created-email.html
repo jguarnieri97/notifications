@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Trabajo agendado</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f6f6f6; padding: 20px; margin: 0;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: auto; background-color: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+    <tr style="background-color: #003366; color: white;">
+      <td style="padding: 20px;">
+        <h4 style="margin: 0;">El trabajo fue agendado</h4>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 20px;">
+        <p style="font-size: 14px;">Hola, {{applicantName}}</p>
+        <p style="font-size: 14px;">Te informamos que el proveedor {{supplierName}} ha confirmado y agendado el trabajo correspondiente al presupuesto <strong>#{{budgetId}}</strong>.</p>
+
+        <h4 style="color: #003366;">Detalles del trabajo</h4>
+        <p style="font-size: 14px;"><strong>Precio acordado:</strong> {{price}}</p>
+        <p style="font-size: 14px;"><strong>Fecha de inicio:</strong> {{start}}</p>
+        <p style="font-size: 14px;"><strong>Fecha de finalización:</strong> {{end}}</p>
+
+        <p style="font-size: 14px;">El proveedor se presentará con su equipo de trabajo según lo acordado.</p>
+
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="{{url}}" style="background-color: #F26522; color: white; text-decoration: none; padding: 12px 20px; border-radius: 5px; font-weight: bold;">Ver detalles</a>
+        </div>
+
+        <p style="font-size: 14px;">Gracias por confiar en Nexwork.</p>
+        <p style="font-size: 14px;">El equipo de Nexwork</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="background-color: #f0f0f0; padding: 10px; text-align: center; font-size: 12px; color: #777;">
+        © 2025 Nexwork - Todos los derechos reservados.
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
